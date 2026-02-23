@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Fitness App</h1>
+        <p>Track workouts, hydration, and daily progress.</p>
+      </header>
+
+     <section class="card">
+  <h2>Add Workout</h2>
+  <form id="workout-form" novalidate>
+    <label for="exercise">Exercise</label>
+    <input id="exercise" type="text" placeholder="e.g. Squats" required />
+
+    <label for="sets">Sets</label>
+    <input id="sets" type="number" min="1" value="3" required />
+
+    <label for="reps">Reps</label>
+    <input id="reps" type="number" min="1" value="8" required />
+
+    <p id="form-feedback" class="feedback" role="alert" aria-live="polite"></p>
+    <button type="submit">Add Workout</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Hydration</h2>
+  <div class="hydration-row">
+    <button id="add-water" type="button">+250 ml</button>
+    <button id="reset-water" type="button" class="secondary">Reset</button>
+    <p><strong id="water-total">0</strong> ml today</p>
+  </div>
+
+  <div class="goal-row">
+    <label for="water-goal">Daily Goal (ml)</label>
+    <input id="water-goal" type="number" min="250" step="250" value="3000" />
+    <button id="save-goal" type="button" class="secondary">Save Goal</button>
+  </div>
+
+  <p id="goal-status" class="goal-status" aria-live="polite"></p>
+</section>
+
+<section class="card">
+  <h2>Today's Workouts</h2>
+  <ul id="workout-list"></ul>
+  <p id="empty-state">No workouts logged yet.</p>
+</section>
