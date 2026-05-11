@@ -3,54 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fitness App</title>
+    <title>Fitness Tracker</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
-      <header>
-        <h1>Fitness App</h1>
-        <p>Track workouts, hydration, and daily progress.</p>
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Daily training log</p>
+          <h1>Fitness Tracker</h1>
+          <p>Log workouts, monitor hydration, and see today's progress at a glance.</p>
+        </div>
+        <div class="date-pill" id="today-label" aria-live="polite"></div>
       </header>
 
-      <section class="card">
-        <h2>Add Workout</h2>
-        <form id="workout-form" novalidate>
-          <label for="exercise">Exercise</label>
-          <input id="exercise" type="text" placeholder="e.g. Squats" required />
-
-          <label for="sets">Sets</label>
-          <input id="sets" type="number" min="1" value="3" required />
-
-          <label for="reps">Reps</label>
-          <input id="reps" type="number" min="1" value="8" required />
-
-          <p id="form-feedback" class="feedback" role="alert" aria-live="polite"></p>
-          <button type="submit">Add Workout</button>
-        </form>
+      <section class="summary-grid" aria-label="Today's fitness summary">
+        <article class="stat-card">
+          <span class="stat-label">Workouts</span>
+          <strong id="workout-count">0</strong>
+          <span class="stat-help">logged today</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Total sets</span>
+          <strong id="total-sets">0</strong>
+          <span class="stat-help">working sets</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Total reps</span>
+          <strong id="total-reps">0</strong>
+          <span class="stat-help">completed reps</span>
+        </article>
       </section>
 
-      <section class="card">
-        <h2>Hydration</h2>
-        <div class="hydration-row">
-          <button id="add-water" type="button">+250 ml</button>
-          <button id="reset-water" type="button" class="secondary">Reset</button>
-          <p><strong id="water-total">0</strong> ml today</p>
-        </div>
+      <section class="layout-grid">
+        <section class="card" aria-labelledby="add-workout-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Strength</p>
+              <h2 id="add-workout-title">Add Workout</h2>
+            </div>
+          </div>
 
-        <div class="goal-row">
-          <label for="water-goal">Daily Goal (ml)</label>
-          <input id="water-goal" type="number" min="250" step="250" value="3000" />
-          <button id="save-goal" type="button" class="secondary">Save Goal</button>
-        </div>
+          <form id="workout-form" novalidate>
+            <label for="exercise">Exercise</label>
+            <input id="exercise" type="text" placeholder="e.g. Squats" autocomplete="off" required />
 
-        <p id="goal-status" class="goal-status" aria-live="polite"></p>
+            <div class="form-row">
+              <div>
+                <label for="sets">Sets</label>
+                <input id="sets" type="number" min="1" value="3" required />
+              </div>
+              <div>
+                <label for="reps">Reps</label>
+                <input id="reps" type="number" min="1" value="8" required />
+              </div>
+            </div>
+
+            <label for="notes">Notes <span>(optional)</span></label>
+            <textarea id="notes" rows="3" placeholder="Tempo, weight, RPE, or form cues"></textarea>
+
+            <p id="form-feedback" class="feedback" role="alert" aria-live="polite"></p>
+            <button type="submit">Add Workout</button>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="hydration-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Recovery</p>
+              <h2 id="hydration-title">Hydration</h2>
+            </div>
+            <p class="water-total"><strong id="water-total">0</strong> ml</p>
+          </div>
+
+          <div class="progress-track" aria-hidden="true">
+            <div id="water-progress" class="progress-fill"></div>
+          </div>
+          <p id="goal-status" class="goal-status" aria-live="polite"></p>
+
+          <div class="hydration-row">
+            <button id="add-water" type="button">+250 ml</button>
+            <button id="add-large-water" type="button" class="secondary">+500 ml</button>
+            <button id="reset-water" type="button" class="ghost">Reset</button>
+          </div>
+
+          <div class="goal-row">
+            <label for="water-goal">Daily Goal</label>
+            <input id="water-goal" type="number" min="250" step="250" value="3000" />
+            <button id="save-goal" type="button" class="secondary">Save</button>
+          </div>
+        </section>
       </section>
 
-      <section class="card">
-        <h2>Today's Workouts</h2>
+      <section class="card workout-card" aria-labelledby="workouts-title">
+        <div class="section-heading workout-heading">
+          <div>
+            <p class="eyebrow">Session history</p>
+            <h2 id="workouts-title">Today's Workouts</h2>
+          </div>
+          <button id="clear-workouts" type="button" class="ghost danger-ghost">Clear all</button>
+        </div>
         <ul id="workout-list"></ul>
-        <p id="empty-state">No workouts logged yet.</p>
+        <p id="empty-state">No workouts logged yet. Add your first exercise above.</p>
       </section>
     </main>
 
